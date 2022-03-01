@@ -11,7 +11,7 @@ import cors from 'cors';
 
 import { CommonRoutesConfig } from './common/routes.config';
 import { AuthRoutes } from './auth/routes';
-import { UsersRoutes, StoresRoutes } from './routes';
+import { UsersRoutes, StoresRoutes, ProductsRoutes } from './routes';
 
 const app: Application = express();
 const routes = Array<CommonRoutesConfig>();
@@ -44,6 +44,7 @@ app.use(expressWinston.logger(loggerMiddlewareConfig));
 routes.push(new UsersRoutes(app));
 routes.push(new AuthRoutes(app));
 routes.push(new StoresRoutes(app));
+routes.push(new ProductsRoutes(app));
 
 // Test route to ensure the server is running as expected.
 const message = 'Server running on port ' + process.env.PORT;

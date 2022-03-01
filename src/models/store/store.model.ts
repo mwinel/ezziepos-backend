@@ -9,7 +9,7 @@ class StoreModel {
     /**
      * Create store.
      * @param storeFields object containing fields to be posted.
-     * @returns user object.
+     * @returns store object.
      */
     async create(storeFields: CreateStoreDto) {
         const store = new this.Store({
@@ -33,7 +33,7 @@ class StoreModel {
     }
 
     /**
-     * Get store by.
+     * Get store by id.
      * @param id store id.
      * @returns store object.
      */
@@ -48,13 +48,13 @@ class StoreModel {
      * @returns store object.
      */
     async patchById(id: string, storeFields: PatchStoreDto | any) {
-        const existingUser = await this.Store.findOneAndUpdate(
+        const existingProduct = await this.Store.findOneAndUpdate(
             { _id: id },
             { $set: storeFields },
             { new: true }
         ).exec();
 
-        return existingUser;
+        return existingProduct;
     }
 
     /**
