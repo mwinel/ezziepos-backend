@@ -1,0 +1,8 @@
+build
+coverage
+node_modules
+.env
+data
+.git
+dist
+package-lock.json
