@@ -1,6 +1,8 @@
 export interface PatchStoreDto {
     name?: string;
     numberOfEmployees?: number;
+    customerEmail?: string;
+    customerPhone?: string;
     addressOne?: string;
     addressTwo?: string;
     city?: string;
@@ -12,4 +14,9 @@ export interface PatchStoreDto {
     storeDomain?: string;
     storeOwner?: any;
     isActive?: boolean;
+    latitude?: number;
+    longitude?: number;
+    source?: string;
+    timezone?: string;
+    weightUnit?: string;
 }

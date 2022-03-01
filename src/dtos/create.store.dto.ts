@@ -1,6 +1,8 @@
 export interface CreateStoreDto {
     name: string;
     numberOfEmployees: number;
+    customerEmail: string;
+    customerPhone: string;
     addressOne: string;
     addressTwo?: string;
     city: string;
@@ -12,4 +14,9 @@ export interface CreateStoreDto {
     storeDomain: string;
     storeOwner: any;
     isActive: boolean;
+    latitude?: number;
+    longitude?: number;
+    source?: string;
+    timezone?: string;
+    weightUnit?: string;
 }

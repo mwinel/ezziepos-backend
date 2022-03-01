@@ -1,6 +1,8 @@
 export interface StoreDoc {
     name: string; // The stores normalized and formatted name.
     numberOfEmployees: number; // The number of employees at the store e.g. 10.
+    customerEmail: string; // The email address used by customers to contact the shop owner.
+    customerPhone: string; // The phone number used by customers to contact the shop owner.
     addressOne: string; // The first line of the store's street address e.g. 123 Main St.
     addressTwo?: string; // The second line of the store's street address e.g. Suite 100.
     city: string; // The store's city e.g. Kampala.
@@ -12,4 +14,9 @@ export interface StoreDoc {
     storeDomain: string; // The stores domain e.g. ak.com.
     storeOwner: any; // The user that owns the store.
     isActive: boolean; // The stores status, whether the store is active or not.
+    latitude: number; // The stores location latitude e.g. 0.0.
+    longitude: number; // The stores location longitude e.g. 0.0.
+    source: string; // The handle or ID of someone who refered the shop.
+    timezone: string; // The stores timezone e.g. Africa/Nairobi.
+    weightUnit: string; // The stores weight unit e.g. kg.
 }
