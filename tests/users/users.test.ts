@@ -18,6 +18,7 @@ const userOne = {
     firstName: 'John',
     lastName: 'Doe',
     email: 'johndoe@example.com',
+    phoneNumber: '0700 222000',
     password: '#4johnDOE',
 };
 
@@ -25,6 +26,7 @@ const userTwo = {
     firstName: 'Mary',
     lastName: 'Jane',
     email: 'maryjane@example.com',
+    phoneNumber: '0700 111000',
     password: 'MARY@Jane#2020',
 };
 

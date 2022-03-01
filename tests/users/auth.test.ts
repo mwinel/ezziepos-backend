@@ -18,6 +18,7 @@ const userOne = {
     firstName: 'John',
     lastName: 'Doe',
     email: 'johndoe@example.com',
+    phoneNumber: '0700 222000',
     password: '#4johnDOE',
 };
 
