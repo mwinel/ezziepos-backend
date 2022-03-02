@@ -4,7 +4,6 @@ import { promisify } from 'util';
 import { CreateUserDto, PatchUserDto } from '../../dtos';
 import { UserDoc } from './user.interface';
 import { userSchema } from './user.schema';
-import { PermissionFlag } from '../../common/middlewares/permissionflag.enum';
 
 const scryptAsync = promisify(scrypt);
 
