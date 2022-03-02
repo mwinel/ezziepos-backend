@@ -14,17 +14,26 @@ export class AuthRoutes extends CommonRoutesConfig {
     configureRoutes(): Application {
         this.app.post(
             '/auth',
-            [body('email').isEmail(), body('password').isString()],
+            [
+                body('email')
+                    .isEmail()
+                    .withMessage('Invalid email and/or password'),
+                body('password')
+                    .isString()
+                    .withMessage('Invalid email and/or password'),
+            ],
             BodyValidationMiddleware.verifyBodyFields,
             AuthMiddleware.verifyPassword,
             AuthController.createJWTToken
         );
 
-        this.app.post('/auth/refresh-token', [],
+        this.app.post(
+            '/auth/refresh-token',
+            [],
             JwtMiddleware.validJWTNeeded,
             JwtMiddleware.verifyRefreshBodyField,
             JwtMiddleware.validRefreshNeeded,
-            AuthController.createJWTToken,
+            AuthController.createJWTToken
         );
 
         return this.app;

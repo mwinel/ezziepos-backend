@@ -14,7 +14,7 @@ class UserModel {
     async create(userFields: CreateUserDto) {
         const user = new this.User({
             ...userFields,
-            permissionFlag: PermissionFlag.ADMIN_PERMISSION,
+            // permissionFlag: PermissionFlag.ADMIN_PERMISSION,
         });
         await user.save();
         return user;

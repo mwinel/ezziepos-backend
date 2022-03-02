@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import { UsersService } from '../services';
+import { PermissionFlag } from '../common/middlewares/permissionflag.enum';
 
 class UsersController {
     async create(req: Request, res: Response) {
         req.body.password = await UsersService.hashPassword(req.body.password);
-        const user = await UsersService.create(req.body);
+        const user = await UsersService.create({
+            ...req.body,
+            permissionFlag: PermissionFlag.STORE_OWNER_PERMISSION,
+        });
         res.status(201).json({ user: user });
     }
 

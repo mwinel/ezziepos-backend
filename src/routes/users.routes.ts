@@ -14,24 +14,35 @@ export default class UsersRoutes extends CommonRoutesConfig {
     }
 
     configureRoutes() {
-        // add actual route configuration here.
-
         this.app
             .route('/users')
             .get(
-                // JwtMiddleware.validJWTNeeded,
-                // PermissionMiddleware.permissionFlagRequired(
-                //     PermissionFlag.ADMIN_PERMISSION
-                // ),
+                JwtMiddleware.validJWTNeeded,
+                PermissionMiddleware.permissionFlagRequired(
+                    PermissionFlag.ADMIN_PERMISSION
+                ),
                 UsersController.getAll
             )
             .post(
-                body('firstName').isString(),
-                body('lastName').isString(),
-                body('email').isEmail().withMessage('Invalid email format'),
+                body('firstName')
+                    .isString()
+                    .withMessage('Firstname is required'),
+                body('lastName').isString().withMessage('Lastname is required'),
+                body('email')
+                    .isEmail()
+                    .normalizeEmail()
+                    .withMessage('Invalid email format'),
+                body('phoneNumber')
+                    .isString()
+                    .withMessage('Phone number is required')
+                    .isMobilePhone(['en-UG', 'en-KE', 'en-TZ', 'en-RW'])
+                    .withMessage('Invalid phone number'),
                 body('password')
-                    .isLength({ min: 6 })
-                    .withMessage('Password must be at least 6 characters long'),
+                    .matches(/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/)
+                    .withMessage(
+                        'Password should be atleast 6 to 16 characters and should contain atleast' +
+                            ' one lowercase, uppercase, numeric and special character.'
+                    ),
                 BodyValidationMiddleware.verifyBodyFields,
                 UsersMiddleware.validateRequiredUserBodyFields,
                 UsersMiddleware.validateSameEmailDoesntExist,
@@ -43,31 +54,32 @@ export default class UsersRoutes extends CommonRoutesConfig {
         this.app
             .route('/users/:id')
             .all(
-                UsersMiddleware.validateUserExists
-                // JwtMiddleware.validJWTNeeded,
-                // PermissionMiddleware.onlySameUserOrAdminCanDoThisAction
+                UsersMiddleware.validateUserExists,
+                JwtMiddleware.validJWTNeeded,
+                PermissionMiddleware.onlySameUserOrAdminCanDoThisAction
             )
             .get(UsersController.getById)
             .delete(UsersController.deleteById);
 
-        this.app
-            .route('/users/:id')
-            .patch(
-                body('firstName').isString().optional(),
-                body('lastName').isString().optional(),
-                body('email')
-                    .isEmail()
-                    .optional()
-                    .withMessage('Invalid email format'),
-                body('password')
-                    .isLength({ min: 6 })
-                    .optional()
-                    .withMessage('Password must be at least 6 characters long'),
-                body('permissionFlag').isInt().optional(),
-                BodyValidationMiddleware.verifyBodyFields,
-                UsersMiddleware.validatePatchEmail,
-                UsersController.patchById
-            );
+        this.app.route('/users/:id').patch(
+            body('firstName').isString().optional(),
+            body('lastName').isString().optional(),
+            body('email')
+                .isEmail()
+                .optional()
+                .withMessage('Invalid email format'),
+            body('password')
+                .matches(/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/)
+                .optional()
+                .withMessage(
+                    'Password should be atleast 6 to 16 characters and should contain atleast' +
+                        ' one lowercase, uppercase, numeric and special character.'
+                ),
+            body('permissionFlag').isInt().optional(),
+            BodyValidationMiddleware.verifyBodyFields,
+            UsersMiddleware.validatePatchEmail,
+            UsersController.patchById
+        );
 
         return this.app;
     }
