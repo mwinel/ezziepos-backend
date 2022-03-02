@@ -1,5 +1,12 @@
 Ezziepos REST API.
 
+## Tech Stack
+- NodeJS
+- ExpressJS
+- TypeScript
+- Mongoose
+- MongoDB
+
 ## Getting Started
 
 Install dependecies:
