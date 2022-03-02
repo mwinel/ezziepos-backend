@@ -1,4 +1,4 @@
-Ezziepos REST API.
+Ezziepos Backend.
 
 ## Tech Stack
 - NodeJS
